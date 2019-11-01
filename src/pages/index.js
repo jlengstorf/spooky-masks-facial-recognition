@@ -100,6 +100,14 @@ export default () => {
           </div>
         </div>
       </main>
+
+      <footer>
+        <p>
+          Created with 🎃 by <a href="http://gantlaborde.com">Gant Laborde</a>{" "}
+          and
+          <a href="https://lengstorf.com">Jason Lengstorf</a>.
+        </p>
+      </footer>
     </>
   )
 }
