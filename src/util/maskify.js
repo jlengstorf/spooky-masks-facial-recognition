@@ -31,6 +31,7 @@ const getRandomMask = masks => {
 }
 
 export async function maskify(masks) {
+  console.log("Maskify starting...")
   await Promise.all([
     faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
     faceapi.nets.faceLandmark68TinyNet.loadFromUri("/models"),
@@ -38,34 +39,43 @@ export async function maskify(masks) {
     console.error(error)
   })
 
+  console.log("models loaded")
+
   const items = document.querySelectorAll(".grid-item")
 
   items.forEach(async item => {
-    const image = item.querySelector("img")
-    console.log({ item, image })
-    const scale = image.width / image.naturalWidth
+    const originalImage = item.querySelector("img")
+    const scale = originalImage.width / originalImage.naturalWidth
 
-    const detection = await faceapi
-      .detectSingleFace(image, new faceapi.TinyFaceDetectorOptions())
-      .withFaceLandmarks(true)
+    const handleImage = (oldImage, newImage) => async () => {
+      const detection = await faceapi
+        .detectSingleFace(newImage, new faceapi.TinyFaceDetectorOptions())
+        .withFaceLandmarks(true)
 
-    if (!detection) {
-      return
+      if (!detection) {
+        return
+      }
+
+      const overlayValues = getOverlayValues(detection.landmarks)
+
+      const overlay = document.createElement("img")
+      overlay.src = getRandomMask(masks)
+      overlay.alt = "mask overlay."
+      overlay.style.cssText = `
+        position: absolute;
+        left: ${overlayValues.leftOffset * scale}px;
+        top: ${overlayValues.topOffset * scale}px;
+        width: ${overlayValues.width * scale}px;
+        transform: rotate(${overlayValues.angle}deg);
+      `
+
+      item.appendChild(overlay)
     }
 
-    const overlayValues = getOverlayValues(detection.landmarks)
-
-    const overlay = document.createElement("img")
-    overlay.src = getRandomMask(masks)
-    overlay.alt = "mask overlay."
-    overlay.style.cssText = `
-      position: absolute;
-      left: ${overlayValues.leftOffset * scale}px;
-      top: ${overlayValues.topOffset * scale}px;
-      width: ${overlayValues.width * scale}px;
-      transform: rotate(${overlayValues.angle}deg);
-    `
-
-    item.appendChild(overlay)
+    // To avoid CORS issues we create a cross-origin-friendly copy of the image.
+    const image = new Image()
+    image.crossOrigin = "Anonymous"
+    image.addEventListener("load", handleImage(originalImage, image))
+    image.src = originalImage.src
   })
 }

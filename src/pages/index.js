@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { maskify } from "../util/maskify"
 
-import "./testing.css"
+import "./styles.css"
 
 export default () => {
   useEffect(() => {
@@ -18,14 +18,24 @@ export default () => {
   }, [])
 
   return (
-    <div>
-      <div className="image-container">
-        <div className="images">
+    <>
+      <header>
+        <h1>Machine Learning, Facial Recognition, and Spooky Masks!</h1>
+        <p>
+          This demo uses{" "}
+          <a href="https://github.com/justadudewhohacks/face-api.js">
+            face-api.js
+          </a>{" "}
+          to find faces, then we do some math to determine face size and angle
+          so we can put some spooky masks on these folks!
+        </p>
+      </header>
+      <main className="content">
+        <div className="grid">
           <div className="grid-item">
             <img
               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&h=750&q=60"
-              alt="Photo by Michael Dam"
-              crossOrigin="anonymous"
+              alt="A woman wearing a red sweater."
             />
             <small>
               <a href="https://unsplash.com/photos/mEZ3PoFGs_k">
@@ -36,8 +46,7 @@ export default () => {
           <div className="grid-item">
             <img
               src="https://images.unsplash.com/photo-1495527400402-c7d3dc332654?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&h=750&q=60"
-              alt="Photo by Cristian Grecu"
-              crossOrigin="anonymous"
+              alt="A pile of skulls in a forest."
             />
             <small>
               <a href="https://unsplash.com/photos/_ykb4UBjtGU">
@@ -48,8 +57,7 @@ export default () => {
           <div className="grid-item">
             <img
               src="https://images.unsplash.com/photo-1551864490-a587c9f6f5e7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&h=750&q=60"
-              alt="Photo by Charisse Kenion"
-              crossOrigin="anonymous"
+              alt="A woman wearing an orange top."
             />
             <small>
               <a href="https://unsplash.com/photos/F0OS7-LO91k">
@@ -60,8 +68,7 @@ export default () => {
           <div className="grid-item">
             <img
               src="https://images.unsplash.com/photo-1546525848-3ce03ca516f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&h=300&q=60"
-              alt="Photo by Mubarak Show"
-              crossOrigin="anonymous"
+              alt="A man wearing a shoulder bag in a park."
             />
             <small>
               <a href="https://unsplash.com/photos/Ve7xjKImd28">
@@ -72,8 +79,7 @@ export default () => {
           <div className="grid-item">
             <img
               src="https://images.unsplash.com/photo-1544549269-414016cccf40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&h=300&q=60"
-              alt="Photo by Supremelysab"
-              crossOrigin="anonymous"
+              alt="A man sitting under a warning sign."
             />
             <small>
               <a href="https://unsplash.com/photos/QK3zruhjawU">
@@ -84,8 +90,7 @@ export default () => {
           <div className="grid-item">
             <img
               src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&h=300&q=60"
-              alt="Photo by Ayo Ogunseinde"
-              crossOrigin="anonymous"
+              alt="A man making a face, standing in front of graffiti."
             />
             <small>
               <a href="https://unsplash.com/photos/sibVwORYqs0">
@@ -94,7 +99,7 @@ export default () => {
             </small>
           </div>
         </div>
-      </div>
-    </div>
+      </main>
+    </>
   )
 }
